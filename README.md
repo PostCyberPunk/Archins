@@ -26,5 +26,8 @@ sudo systemctl enable keyd && sudo systemctl start keyd
 lf fish hypr kitty lazygit
 
 # todo
-hypr swap ratio hide-mouse
+cn add fix
+yay ntfs-3g v2raya
+enable networkmanager
+grub install on mountpoint /boot
 
