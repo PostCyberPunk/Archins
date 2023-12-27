@@ -1,13 +1,13 @@
 
 # lib
-git-credential-manager-core-bin ffmpeg translate-shell proxychains-ng
+git-credential-manager-core-bin ffmpeg translate-shell 
 # preview
-atool perl-image-exiftool jq glow libreoffice-fresh ffmpegthumbnailer git-delta poppler
+atool perl-image-exiftool jq glow ffmpegthumbnailer git-delta poppler libreoffice-fresh
 # apps
 peazip 
 ncdu
 spotify spicetify-cli
-nuclear-player-bin
+<!-- nuclear-player-bin -->
 xone-dkms-git xone-dongle-firmware antimicrox
 ```bash
 sudo chmod a+wr /opt/spotify
@@ -26,8 +26,5 @@ sudo systemctl enable keyd && sudo systemctl start keyd
 lf fish hypr kitty lazygit
 
 # todo
-cn add fix
-yay ntfs-3g v2raya
-enable networkmanager
-grub install on mountpoint /boot
+<!-- grub install on mountpoint /boot -->
 

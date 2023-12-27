@@ -1,3 +1,5 @@
+## fish change shell
+chsh -s /usr/bin/fish
 ## write to readonly nvim
 :w !sudo tee %
 ## shred remove
