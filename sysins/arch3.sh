@@ -12,7 +12,7 @@ echo 'LANG=en_US.UTF-8' >>/etc/locale.conf
 
 echo $hname >>/etc/hostname
 useradd -m -G wheel $uname
-# systemctl enable NetworkManager;
+systemctl enable NetworkManager
 cat >>/etc/sudoers <<EOF
 %wheel ALL=(ALL:ALL) ALL
 %wheel ALL=(ALL:ALL) NOPASSWD: ALL
