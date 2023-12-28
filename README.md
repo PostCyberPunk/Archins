@@ -5,7 +5,7 @@ git-credential-manager-core-bin ffmpeg translate-shell
 atool perl-image-exiftool jq glow ffmpegthumbnailer git-delta poppler libreoffice-fresh
 # apps
 peazip 
-ncdu
+gdu
 spotify spicetify-cli
 <!-- nuclear-player-bin -->
 xone-dkms-git xone-dongle-firmware antimicrox
@@ -14,7 +14,7 @@ sudo chmod a+wr /opt/spotify
 sudo chmod a+wr /opt/spotify/Apps -R
 ```
 # Utililty
-glmark2
+glmark2 zellij
 ```bash
 git clone https://github.com/rvaiya/keyd 
 cd keyd 
