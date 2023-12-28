@@ -14,7 +14,7 @@ sudo chmod a+wr /opt/spotify
 sudo chmod a+wr /opt/spotify/Apps -R
 ```
 # Utililty
-glmark2 zellij
+glmark2 zellij hyperfine(benchmark)
 ```bash
 git clone https://github.com/rvaiya/keyd 
 cd keyd 
