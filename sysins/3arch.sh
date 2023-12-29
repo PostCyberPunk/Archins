@@ -17,5 +17,7 @@ cat >>/etc/sudoers <<EOF
 %wheel ALL=(ALL:ALL) ALL
 %wheel ALL=(ALL:ALL) NOPASSWD: ALL
 EOF
-echo 'Dont forget to chang your password!!!'
+chsh -s /usr/bin/fish
+chsh -s /usr/bin/fish $hname
+echo '!!!!!!Dont forget to chang your password!!!'
 date
