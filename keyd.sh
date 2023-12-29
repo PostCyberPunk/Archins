@@ -1,6 +1,8 @@
 read -p "Install laptop conf?" ilap
-git clone https://github.com/rvaiya/keyd
-cd keyd
+yay -S --needed gcc
+mkdir -p ~/Temp
+git clone https://github.com/rvaiya/keyd ~/Temp/keyd
+cd ~/Temp/keyd
 make && sudo
 make install
 sudo systemctl enable keyd && sudo systemctl start keyd
