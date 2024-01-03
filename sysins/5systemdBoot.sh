@@ -5,4 +5,5 @@ default arch
 timeout 3
 EOF
 nvim -o /etc/fstab /boot/loader/entries/arch.conf
+
 date
