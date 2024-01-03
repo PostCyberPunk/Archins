@@ -9,6 +9,7 @@ gdu
 spotify spicetify-cli
 <!-- nuclear-player-bin -->
 xone-dkms-git xone-dongle-firmware antimicrox
+virtualbox-bin waydroid
 ```bash
 sudo chmod a+wr /opt/spotify
 sudo chmod a+wr /opt/spotify/Apps -R
