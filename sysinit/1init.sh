@@ -9,7 +9,9 @@ fi
 
 step_init_system() {
 	read -p "HostName: " hname
-	read -p "UserName: " uname
+	if [[ -z $uname ]]; then
+		read -p "UserName: " uname
+	fi
 
 	set_time&&mgreen "Initialized:Time"
 	gen_locale&&mgreen "Initialized:Locale"
