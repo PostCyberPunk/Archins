@@ -1,5 +1,12 @@
 echo 'Adding community pkg to pacman'
-cat >>/etc/pacman.conf <<EOF
+tee -a >>/etc/pacman.conf <<EOF
+### Setting
+Color
+CheckSpace
+VerbosePkgLists
+ParallelDownloads = 5
+ILoveCandy
+
 [archlinuxcn]
 SigLevel = Optional TrustAll
 Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/\$arch
