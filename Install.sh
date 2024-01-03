@@ -1,3 +1,4 @@
+#!/bin/bash
 source ./lib/utils.sh
 
 init_install() {
@@ -72,6 +73,24 @@ step_core() {
 	check_last_cmd "Generation fstab"
 }
 
+pre-chroot() {
+	if [[ -z $uname ]]; then
+		read -p "Username" uname
+	fi
+	mkdir -p "/mnt/home/$uname/Temp"
+	cp -r "./sysinit" "/mnt/home/$uname/Temp/"
+	cp -r "./lib" "/mnt/home/$uname/Temp/sysinit/"
+}
+chroot() {
+	chroot /mnt /bin/bash <<END
+  cd /home/$uname/Temp/
+  chmod +x ./*.sh
+  ./init.sh
+  ./extra.sh
+  ./systemdBoot.sh
+END
+}
+
 main() {
 	mgreen "######################"
 	mgreen "PCP Arch Installation"
@@ -79,9 +98,11 @@ main() {
 	if need_confirm "Init ArchISO ?"; then
 		init_install
 	fi
+
 	if need_confirm "Disk partition?"; then
 		write_disk
 	fi
+
 	if need_confirm "Formation and Installing core?"; then
 		step_info_fc
 		if need_confirm "Format partition?"; then
@@ -91,6 +112,29 @@ main() {
 			step_core
 		fi
 	fi
+	###########Chroot
+	if need_confirm "Arch-chroot? "; then
+    pre-chroot
+    chroot
+	else
+		mteal "Tips Make sure only system partition mounted"
+		mteal "You can run pre-chroot to copy all files first"
+	fi
 }
-main
+
+######################
+# Get the directory of the script
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+
+# Check if the current working directory is the same as the script directory
+if [ ! "$PWD" = "$DIR" ]; then
+	echo "The script is not being executed in the same directory where it is located."
+	exit 1
+fi
+
+if [[ $1 = "" ]]; then
+	main
+else
+	"$1"
+fi
 exit 0

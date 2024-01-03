@@ -3,6 +3,8 @@ source ./lib/utils.sh
 
 if [[ ! $1 = "" ]]; then
 	"$1"
+else
+	step_boot
 fi
 step_boot() {
 	bootctl install

@@ -1,7 +1,9 @@
 #!/bin/bash
 source ./lib/utils.sh
 
-if [[ ! $1 = "" ]]; then
+if [[ $1 = "" ]]; then
+	step_init_system
+else
 	"$1"
 fi
 
