@@ -1,5 +1,19 @@
-echo 'Adding community pkg to pacman'
-tee -a >>/etc/pacman.conf <<EOF
+#!/bin/bash
+source ./lib/utils.sh
+
+if [[ ! $1 = "" ]]; then
+	"$1"
+fi
+step_extra_source
+{
+  config_pacman&&mgreen 'Adding community pkg to pacman'
+	pacman -Sy archlinuxcn-keyring
+	pacman -S --needed yay ntfs-3g v2raya proxychains-ng
+	systemctl enable v2raya && mteal "v2raya enabled"
+	date
+}
+config_pacman(){
+	tee -a >>/etc/pacman.conf <<EOF
 ### Setting
 Color
 CheckSpace
@@ -12,7 +26,4 @@ SigLevel = Optional TrustAll
 Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/\$arch
 
 EOF
-pacman -Sy archlinuxcn-keyring
-pacman -S --needed yay ntfs-3g v2raya proxychains-ng
-systemctl enable v2raya&&echo v2raya enabled
-date
+}
