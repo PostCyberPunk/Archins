@@ -21,7 +21,7 @@ mteal() {
 
 need_confirm() {
 	mteal "$1(y/N)"
-	read -n1 doit
+	read doit
 	echo
 	if [[ $doit == [yY] ]]; then
 		return 0
