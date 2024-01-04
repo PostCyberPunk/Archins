@@ -21,9 +21,15 @@ EOF
 
 step_extra_source() {
 	config_pacman && mgreen 'Adding community pkg to pacman.conf'
-	pacman -Sy archlinuxcn-keyring && mgreen "Synced: archlinuxcn-keyring"
-	pacman -S --needed yay ntfs-3g v2raya proxychains-ng && mgreen "Synced: yay and proxy"
-	systemctl enable v2raya && mteal "v2raya enabled"
+
+	pacman -Sy archlinuxcn-keyring 
+  check_last_cmd "Synced: archlinuxcn-keyring"
+
+	pacman -S --needed yay ntfs-3g v2raya proxychains-ng 
+  check_last_cmd "Synced: yay and proxy"
+
+	systemctl enable v2raya 
+  check_last_cmd "v2raya enabled"
 	date
 }
 

@@ -6,8 +6,8 @@ set_time() {
 	ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 	hwclock --systohc && echo 'SyncClock'
 	mgreen "Time setting done"
-  now_time=$(date)
-	mgreen "Completed time: $now_time"
+
+  print_time
 }
 
 gen_locale() {
@@ -28,17 +28,24 @@ set_usernpass() {
 %wheel ALL=(ALL:ALL) ALL
 %wheel ALL=(ALL:ALL) NOPASSWD: ALL
 EOF
-	chsh -s /usr/bin/fish
-	chsh -s /usr/bin/fish $hname
-	# echo '!!!!!!Dont forget to chang your password!!!'
-	echo password for Root
+	chsh -s /usr/bin/fish  
+  check_last_cmd "Change shell to fish for root"
+	chsh -s /usr/bin/fish $uname  
+  check_last_cmd "Change shell to fish for $uname"
+
+	mteal "Change password for Root"
 	passwd
-	echo password for $uname
+	mteal "Change password for $uname"
 	passwd $uname
-	date
 }
 
 step_init_system() {
+  
+  mgreen "Done:arch-chroot"
+  mblue "######################"
+  mblue "Initialzing system!"
+  mblue "######################"
+
 	read -p "HostName: " hname
 	read -p "UserName: " uname
 

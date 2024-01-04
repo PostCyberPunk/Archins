@@ -1,22 +1,4 @@
-
 #!/bin/bash
-need_confirm() {
-	read -n1 -p "$1(y/N)" doit
-	echo
-	if [[ $doit == [yY] ]]; then
-		return 0
-	else
-		return 1
-	fi
-}
-check_last_cmd() {
-	if [[ $? -ne 0 ]]; then
-		mred "Failed:$1...Aborted"
-		exit 1
-  else
-    mgreen "Finished:$1"
-	fi
-}
 ##########Colors
 mred() {
 	echo "$(tput setaf 1)$1$(tput sgr0)"
@@ -35,6 +17,29 @@ mpurple() {
 }
 mteal() {
 	echo "$(tput setaf 6)$1$(tput sgr0)"
+}
+
+need_confirm() {
+	mteal "$1(y/N)"
+	read -n1 doit
+	echo
+	if [[ $doit == [yY] ]]; then
+		return 0
+	else
+		return 1
+	fi
+}
+check_last_cmd() {
+	if [[ $? -ne 0 ]]; then
+		mred "Failed:$1...Aborted"
+		exit 1
+	else
+		mgreen "Finished:$1"
+	fi
+}
+print_time() {
+	now_time=$(date)
+	mgreen "Completed time: $now_time"
 }
 
 # for ((j = 1; j <= 256; j++)); do

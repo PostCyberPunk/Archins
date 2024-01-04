@@ -66,7 +66,7 @@ step_format() {
 step_core() {
 	mount $mainpart /mnt
 	mount --mkdir $efipart /mnt/boot
-	mteal "Installing core!"
+	myellow "Installing core!"
 	pacstrap /mnt base base-devel linux linux-firmware linux-headers \
 		fish git neovim lf bottom man-db man-pages networkmanager grub efibootmgr intel-ucode noto-fonts-cjk which lvm2 \
 		tmux wget curl
@@ -78,6 +78,7 @@ step_core() {
 pre-chroot() {
 	cp -r "./sysinit" "/mnt/home/"
 	cp -r "./lib" "/mnt/home/sysinit/"
+  mblue "Script located at:/home/sysinit"
 }
 chroot() {
   arch-chroot /mnt /bin/bash -c '
@@ -117,8 +118,8 @@ main() {
     fi
     chroot
 	else
-		mteal "Tips Make sure only system partition mounted"
-		mteal "You can run pre-chroot to copy all files first"
+		mblue "Tips Make sure only system partition mounted"
+		mblue "You can run pre-chroot to copy all files first"
 	fi
 }
 

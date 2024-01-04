@@ -9,12 +9,13 @@ boot_fix() {
 step_boot() {
 	bootctl install
 	check_last_cmd "Systemd boot installed"
-	cp ./lib/arch.conf /boot/loader/entries/ && echo 'copy entry conf'
+	cp ./lib/arch.conf /boot/loader/entries/ 
+  check_last_cmd "Boot entry conf copied"
 	cat >>/boot/loader/loader.config <<EOF
 default arch
 timeout 3
 EOF
-	mteal "Loader Setup"
+	mblue "Loader Setup"
 	nvim -o /etc/fstab /boot/loader/entries/arch.conf
 	mgreen "Done:bootloader"
 	if need_confirm "Do you want fix systemd boot hang for 1m30s? "; then
