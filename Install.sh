@@ -3,10 +3,10 @@ source ./lib/utils.sh
 
 init_install() {
 	systemctl stop reflector && myellow "Stop Reflector"
+' /etc/pacman.conf &&mblue 
 	sed -i '1 i Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist && mgreen "Tsinghua mirrors added"
 	timedatectl set-timezone Asia/Shanghai && mgreen "Setup timezone"
-  now_time=$(date)
-	mgreen "Current time: $now_time"
+  print_time
 	pacman -Syy && mgreen "PKG source updated"
 	pacman -S archlinux-keyring && mgreen "Synced:archlinux-keyring"
 }
@@ -78,10 +78,10 @@ step_core() {
 pre-chroot() {
 	cp -r "./sysinit" "/mnt/home/"
 	cp -r "./lib" "/mnt/home/sysinit/"
-  mblue "Script located at:/home/sysinit"
+	mblue "Script located at:/home/sysinit"
 }
 chroot() {
-  arch-chroot /mnt /bin/bash -c '
+	arch-chroot /mnt /bin/bash -c '
   cd /home/sysinit/
   chmod +x ./*.sh
   ./1init.sh
@@ -113,10 +113,10 @@ main() {
 	fi
 	###########Chroot
 	if need_confirm "Arch-chroot? "; then
-    if need_confirm "Prepare for chroot? "; then
-      pre-chroot
-    fi
-    chroot
+		if need_confirm "Prepare for chroot? "; then
+			pre-chroot
+		fi
+		chroot
 	else
 		mblue "Tips Make sure only system partition mounted"
 		mblue "You can run pre-chroot to copy all files first"
