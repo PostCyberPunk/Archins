@@ -3,6 +3,13 @@ source ./lib/utils.sh
 
 init_install() {
 	systemctl stop reflector && myellow "Stop Reflector"
+	sed -i '/\[options\]/a \
+### Setting\
+Color\
+CheckSpace\
+VerbosePkgLists\
+ParallelDownloads = 5\
+ILoveCandy
 ' /etc/pacman.conf &&mblue 
 	sed -i '1 i Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist && mgreen "Tsinghua mirrors added"
 	timedatectl set-timezone Asia/Shanghai && mgreen "Setup timezone"
