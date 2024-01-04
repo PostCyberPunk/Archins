@@ -74,21 +74,17 @@ step_core() {
 }
 
 pre-chroot() {
-	if [[ -z $uname ]]; then
-		read -p "Username" uname
-	fi
-	mkdir -p "/mnt/home/$uname/Temp"
-	cp -r "./sysinit" "/mnt/home/$uname/Temp/"
-	cp -r "./lib" "/mnt/home/$uname/Temp/sysinit/"
+	cp -r "./sysinit" "/mnt/home/"
+	cp -r "./lib" "/mnt/home/sysinit/"
 }
 chroot() {
-	chroot /mnt /bin/bash <<END
-  cd /home/$uname/Temp/
+  arch-chroot /mnt /bin/bash -c '
+  cd /home/sysinit/
   chmod +x ./*.sh
-  ./init.sh
-  ./extra.sh
-  ./systemdBoot.sh
-END
+  ./1init.sh
+  ./2extra.sh
+  ./3systemdBoot.sh
+  '
 }
 
 main() {
@@ -114,7 +110,9 @@ main() {
 	fi
 	###########Chroot
 	if need_confirm "Arch-chroot? "; then
-    pre-chroot
+    if need_confirm "Prepare for chroot? "; then
+      pre-chroot
+    fi
     chroot
 	else
 		mteal "Tips Make sure only system partition mounted"
