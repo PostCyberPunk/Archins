@@ -33,11 +33,12 @@ EOF
 	chsh -s /usr/bin/fish $uname  
   check_last_cmd "Change shell to fish for $uname"
 
-	mteal "Change password for Root"
-	passwd
-	mteal "Change password for $uname"
-	passwd $uname
-}
+	passwd root||mred "Failied Change password for Root\
+    set password mannually!!!!"
+	check_last_cmd "Change password for Root"
+	passwd $uname||mred "Failied Change password for Root\
+    set password mannually!!!!"
+	check_last_cmd "Change password for $uname"
 
 step_init_system() {
   
