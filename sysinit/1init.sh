@@ -1,34 +1,16 @@
 #!/bin/bash
 source ./lib/utils.sh
 
-if [[ $1 = "" ]]; then
-	step_init_system
-else
-	"$1"
-fi
-
-step_init_system() {
-	read -p "HostName: " hname
-	if [[ -z $uname ]]; then
-		read -p "UserName: " uname
-	fi
-
-	set_time&&mgreen "Initialized:Time"
-	gen_locale&&mgreen "Initialized:Locale"
-	set_usernpass&&mgreen "Initialized:User and password"
-
-	systemctl enable NetworkManager && mgreen "NetworkManager enabled"
-}
 set_time() {
 
 	ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 	hwclock --systohc && echo 'SyncClock'
 	mgreen "Time setting done"
-	date
-
+  now_time=$(date)
+	mgreen "Completed time: $now_time"
 }
-gen_locale
-{
+
+gen_locale() {
 	cat >>/etc/locale.gen <<EOF
 en_US.UTF-8 UTF-8
 zh_CN.UTF-8 UTF-8
@@ -55,3 +37,20 @@ EOF
 	passwd $uname
 	date
 }
+
+step_init_system() {
+	read -p "HostName: " hname
+	read -p "UserName: " uname
+
+	set_time && mgreen "Initialized:Time"
+	gen_locale && mgreen "Initialized:Locale"
+	set_usernpass && mgreen "Initialized:User and password"
+
+	systemctl enable NetworkManager && mgreen "NetworkManager enabled"
+}
+
+if [[ $1 = "" ]]; then
+	step_init_system
+else
+	"$1"
+fi

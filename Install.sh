@@ -2,19 +2,21 @@
 source ./lib/utils.sh
 
 init_install() {
-	systemctl stop reflector && myellow "stop reflector"
-	sed -i '1 i Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist && myellow "add tsinghua mirrors"
-	timedatectl set-timezone Asia/Shanghai && myellow "Setup timezone"
-	mgreen "Current time:"
-	date
+	systemctl stop reflector && myellow "Stop Reflector"
+	sed -i '1 i Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist && mgreen "Tsinghua mirrors added"
+	timedatectl set-timezone Asia/Shanghai && mgreen "Setup timezone"
+  now_time=$(date)
+	mgreen "Current time: $now_time"
 	pacman -Syy && mgreen "PKG source updated"
-	pacman -S archlinux-keyring && mgreen "archlinux-keyring installed"
+	pacman -S archlinux-keyring && mgreen "Synced:archlinux-keyring"
 }
 
 ### 2 partition
 write_disk() {
 	lsblk
+	mgreen "######################"
 	myellow "!!!!!Carefull or you may lost data!!!!"
+	mgreen "######################"
 	read -p "Disk id(/dev/): " _disk_id
 	if [[ -z $_disk_id ]]; then
 		mred "Disk id cant be empty"
