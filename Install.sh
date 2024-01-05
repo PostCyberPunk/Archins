@@ -47,7 +47,7 @@ write_disk() {
 	fi
 }
 step_partition() {
-	while ! __write_disk; do
+	while ! write_disk; do
 		myellow "Start Over"
 	done
 }
@@ -108,7 +108,7 @@ main() {
 	fi
 
 	if need_confirm "Disk partition?"; then
-		write_disk
+		step_partition
 	fi
 
 	if need_confirm "Formation and Installing core?"; then
