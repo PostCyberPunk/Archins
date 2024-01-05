@@ -46,6 +46,7 @@ step_partition() {
 ###### formant and core installing #######
 step_info_fc() {
 	if [[ -z $_disk_id ]]; then
+		lsblk
 		read -p "Disk id(/dev/): " _disk_id
 	fi
 	mteal "Input the partition index(1-9):"
@@ -107,6 +108,12 @@ main() {
 
 	if need_confirm "Formation and Installing core?"; then
 		step_info_fc
+		while ! need_confirm "Are You Sure? \
+      EFI:$efipart \
+      MainFileSystem:$mainpart \
+       "; do
+			step_info_fc
+		done
 		if need_confirm "Format partition?"; then
 			step_format
 		fi
