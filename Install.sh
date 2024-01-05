@@ -3,6 +3,8 @@ source ./lib/utils.sh
 
 init_install() {
 	systemctl stop reflector && myellow "Stop Reflector"
+	timedatectl set-timezone Asia/Shanghai && mgreen "Setup timezone"
+	print_time
 	if need_confirm "Setup pacman.conf? "; then
 		sed -i '/\[options\]/a \
 ### Setting\
@@ -14,8 +16,6 @@ ILoveCandy
 ' /etc/pacman.conf && mblue "Done:pacman.conf"
 	fi
 	sed -i '1 i Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist && mgreen "Tsinghua mirrors added"
-	timedatectl set-timezone Asia/Shanghai && mgreen "Setup timezone"
-	print_time
 	pacman -Syy && mgreen "PKG source updated"
 	pacman -S archlinux-keyring && mgreen "Synced:archlinux-keyring"
 }
