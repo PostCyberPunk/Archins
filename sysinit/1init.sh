@@ -39,6 +39,7 @@ EOF
 	passwd $uname||mred "Failied Change password for Root\
     set password mannually!!!!"
 	check_last_cmd "Change password for $uname"
+}
 
 step_init_system() {
   
