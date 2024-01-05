@@ -77,7 +77,7 @@ install_core() {
 install_extra() {
 	pacstrap -K /mnt man-db man-pages networkmanager grub efibootmgr intel-ucode \
 		fish git neovim lf bottom noto-fonts-cjk \
-		tmux wget curl which lvm2
+		tmux zellij wget curl which lvm2
 }
 
 pre-chroot() {
