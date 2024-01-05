@@ -43,16 +43,16 @@ print_time() {
 }
 
 redo_failed_cmd() {
-	"$2"
+  eval "$2"
 	status=$?
 	if [ $status -ne 0 ]; then
-		mred "!!Failed $1 exited : $status."
+		echo "!!Failed $1 exited : $status."
 		read -p "Do you want to execute the last command again? (y/N) " choice
 		if [[ $choice = [Yy] ]]; then
 			redo_failed_cmd "$1" "$2"
 		fi
 	else
-		mgreen "Done: $1"
+		echo "Done: $1"
 	fi
 }
 # for ((j = 1; j <= 256; j++)); do
