@@ -88,7 +88,7 @@ chroot() {
 	arch-chroot /mnt /bin/bash -c '
   cd /home/sysinit/
   chmod +x ./*.sh
-  ./system_init.sh
+  env TERM=xterm-256color ./system_init.sh
   '
 }
 
