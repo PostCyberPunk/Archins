@@ -88,9 +88,7 @@ chroot() {
 	arch-chroot /mnt /bin/bash -c '
   cd /home/sysinit/
   chmod +x ./*.sh
-  ./1init.sh
-  ./2extra.sh
-  ./3systemdBoot.sh
+  ./system_init.sh
   '
 }
 
