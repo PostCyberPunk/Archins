@@ -34,12 +34,11 @@ EOF
 	check_last_cmd "Change shell to fish for $uname"
 
 	mteal "Change password for Root:"
-	passwd root || mred "Failied Change password for Root\
-    set password mannually!!!!"
 
+	redo_failed_cmd "Change password for Root" "passwd root"
 	mteal "Change password for $uname:"
-	passwd $uname || mred "Failied Change password for Root\
-    set password mannually!!!!"
+
+	redo_failed_cmd "Change password for $uname" "passwd $uname"
 }
 
 step_init_system() {

@@ -65,24 +65,19 @@ step_format() {
 	check_last_cmd "Partition Formating"
 }
 step_core() {
-	mount $mainpart /mnt
-	mount --mkdir $efipart /mnt/boot
 	myellow "Installing core!"
-  install_core
+	redo_failed_cmd "Install Core" install_core
 	if need_confirm "Do you want to install Extra ?"; then
-    install_extra
+		redo_failed_cmd "Install Extra" install_extra
 	fi
-	check_last_cmd "Core installation"
-	genfstab -U /mnt >>/mnt/etc/fstab
-	check_last_cmd "Generation fstab"
 }
 install_core() {
-	pacstrap /mnt base base-devel linux linux-firmware linux-headers
+	pacstrap -K /mnt base base-devel linux linux-firmware linux-headers
 }
-install_extra(){
-		pacstrap /mnt man-db man-pages networkmanager grub efibootmgr intel-ucode \
-			fish git neovim lf bottom noto-fonts-cjk \
-			tmux wget curl which lvm2
+install_extra() {
+	pacstrap -K /mnt man-db man-pages networkmanager grub efibootmgr intel-ucode \
+		fish git neovim lf bottom noto-fonts-cjk \
+		tmux wget curl which lvm2
 }
 
 pre-chroot() {
@@ -121,8 +116,14 @@ main() {
 		if need_confirm "Format partition?"; then
 			step_format
 		fi
-		if need_confirm "Install Core?"; then
+		mount $mainpart /mnt && mount --mkdir $efipart /mnt/boot
+		check_last_cmd "System mounted"
+		if need_confirm "Install Core and Extra?"; then
 			step_core
+		fi
+		if need_confirm "Gen Fstab?"; then
+			genfstab -U /mnt >>/mnt/etc/fstab
+			check_last_cmd "Generation fstab"
 		fi
 	fi
 	###########Chroot

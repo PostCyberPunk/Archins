@@ -7,10 +7,9 @@ boot_fix() {
 }
 
 step_boot() {
-	bootctl install
-	check_last_cmd "Systemd boot installed"
+	redo_failed_cmd "Systemd boot installed" "bootctl install"
 	cp ./lib/arch.conf /boot/loader/entries/
-	check_last_cmd "Boot entry conf copied"
+	mgreen "Boot entry conf copied"
 	cat >>/boot/loader/loader.config <<EOF
 default arch
 timeout 3

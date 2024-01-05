@@ -42,6 +42,19 @@ print_time() {
 	mgreen "Completed time: $now_time"
 }
 
+redo_failed_cmd() {
+	"$2"
+	status=$?
+	if [ $status -ne 0 ]; then
+		mred "!!Failed $1 exited : $status."
+		read -p "Do you want to execute the last command again? (y/N) " choice
+		if [[ $choice = [Yy] ]]; then
+			redo_failed_cmd "$1" "$2"
+		fi
+	else
+		mgreen "Done: $1"
+	fi
+}
 # for ((j = 1; j <= 256; j++)); do
 # 	echo "$(tput setaf $j)$j#################################$(tput sgr0)"
 # done
