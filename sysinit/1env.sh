@@ -7,7 +7,7 @@ set_time() {
 	hwclock --systohc && echo 'SyncClock'
 	mgreen "Time setting done"
 
-  print_time
+	print_time
 }
 
 gen_locale() {
@@ -28,25 +28,26 @@ set_usernpass() {
 %wheel ALL=(ALL:ALL) ALL
 %wheel ALL=(ALL:ALL) NOPASSWD: ALL
 EOF
-	chsh -s /usr/bin/fish  
-  check_last_cmd "Change shell to fish for root"
-	chsh -s /usr/bin/fish $uname  
-  check_last_cmd "Change shell to fish for $uname"
+	chsh -s /usr/bin/fish
+	check_last_cmd "Change shell to fish for root"
+	chsh -s /usr/bin/fish $uname
+	check_last_cmd "Change shell to fish for $uname"
 
-	passwd root||mred "Failied Change password for Root\
+	mteal "Change password for Root:"
+	passwd root || mred "Failied Change password for Root\
     set password mannually!!!!"
-	check_last_cmd "Change password for Root"
-	passwd $uname||mred "Failied Change password for Root\
+
+	mteal "Change password for $uname:"
+	passwd $uname || mred "Failied Change password for Root\
     set password mannually!!!!"
-	check_last_cmd "Change password for $uname"
 }
 
 step_init_system() {
-  
-  mgreen "Done:arch-chroot"
-  mblue "######################"
-  mblue "Initialzing system!"
-  mblue "######################"
+
+	mgreen "Done:arch-chroot"
+	mblue "######################"
+	mblue "Initialzing system!"
+	mblue "######################"
 
 	read -p "HostName: " hname
 	read -p "UserName: " uname
