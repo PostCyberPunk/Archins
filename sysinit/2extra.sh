@@ -14,7 +14,6 @@ ILoveCandy
 ' $target_file
 	tee -a >>/etc/pacman.conf <<EOF
 [archlinuxcn]
-SigLevel = Optional TrustAll
 Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/\$arch
 EOF
 }

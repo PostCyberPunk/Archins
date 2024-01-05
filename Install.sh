@@ -5,6 +5,7 @@ init_install() {
 	systemctl stop reflector && myellow "Stop Reflector"
 	timedatectl set-timezone Asia/Shanghai && mgreen "Setup timezone"
 	print_time
+
 	if need_confirm "Setup pacman.conf? "; then
 		sed -i '/\[options\]/a \
 ### Setting\
@@ -17,7 +18,7 @@ ILoveCandy
 	fi
 	sed -i '1 i Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist && mgreen "Tsinghua mirrors added"
 	pacman -Syy && mgreen "PKG source updated"
-	pacman -S archlinux-keyring && mgreen "Synced:archlinux-keyring"
+	# pacman -S archlinux-keyring && mgreen "Synced:archlinux-keyring"
 }
 
 ### 2 partition
