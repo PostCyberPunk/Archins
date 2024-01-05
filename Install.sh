@@ -6,6 +6,7 @@ init_install() {
 	timedatectl set-timezone Asia/Shanghai && mgreen "Setup timezone"
 	print_time
 
+	sed -i '1 i Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist && mgreen "Tsinghua mirrors added"
 	if need_confirm "Setup pacman.conf? "; then
 		sed -i '/\[options\]/a \
 ### Setting\
@@ -16,9 +17,8 @@ ParallelDownloads = 5\
 ILoveCandy
 ' /etc/pacman.conf && mblue "Done:pacman.conf"
 	fi
-	sed -i '1 i Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist && mgreen "Tsinghua mirrors added"
-	pacman -Syy && mgreen "PKG source updated"
 	# pacman -S archlinux-keyring && mgreen "Synced:archlinux-keyring"
+	pacman -Syy && mgreen "PKG source updated"
 }
 
 ### 2 partition
@@ -77,9 +77,12 @@ step_core() {
 	mount $mainpart /mnt
 	mount --mkdir $efipart /mnt/boot
 	myellow "Installing core!"
-	pacstrap /mnt base base-devel linux linux-firmware linux-headers \
-		fish git neovim lf bottom man-db man-pages networkmanager grub efibootmgr intel-ucode noto-fonts-cjk which lvm2 \
-		tmux wget curl
+	pacstrap /mnt linux linux-firmware linux-headers
+	if need_confirm "Do you want to install Extra ?"; then
+		pacstrap /mnt base base-devel man-db man-pages networkmanager grub efibootmgr intel-ucode \
+			fish git neovim lf bottom noto-fonts-cjk \
+			tmux wget curl which lvm2
+	fi
 	check_last_cmd "Core installation"
 	genfstab -U /mnt >>/mnt/etc/fstab
 	check_last_cmd "Generation fstab"
