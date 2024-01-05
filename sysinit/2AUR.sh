@@ -21,6 +21,9 @@ EOF
 step_extra_source() {
 	config_pacman && mgreen 'Adding community pkg to pacman.conf'
 
+  ############## 2023 12 patch ################
+	sudo pacman-key --lsign-key "farseerfc@archlinux.org"
+
 	pacman -Sy archlinuxcn-keyring
 	check_last_cmd "Synced: archlinuxcn-keyring"
 
