@@ -12,3 +12,7 @@ fi
 if need_confirm "Install systemdBoot?"; then
 	./3systemdBoot.sh
 fi
+
+if need_confirm "Install SSH?"; then
+  pacman -S openssh&&systemctl enable sshd
+fi
