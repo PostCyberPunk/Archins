@@ -14,5 +14,5 @@ if need_confirm "Install systemdBoot?"; then
 fi
 
 if need_confirm "Install SSH?"; then
-  pacman -S openssh&&systemctl enable sshd
+  pacman -S --noconfirm openssh&&systemctl enable sshd
 fi

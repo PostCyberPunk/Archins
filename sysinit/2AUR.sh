@@ -24,9 +24,9 @@ step_extra_source() {
   ############## 2023 12 patch ################
 	sudo pacman-key --lsign-key "farseerfc@archlinux.org"
 	
-	redo_failed_cmd "Synced: archlinuxcn-keyring" "pacman -Sy archlinuxcn-keyring"
+	redo_failed_cmd "Synced: archlinuxcn-keyring" "pacman -Sy --noconfirm archlinuxcn-keyring"
 
-	redo_failed_cmd "Synced: yay and proxy" "pacman -S --needed yay ntfs-3g v2raya proxychains-ng"
+	redo_failed_cmd "Synced: yay and proxy" "pacman -S --noconfirm --needed yay ntfs-3g v2raya proxychains-ng"
 
 	redo_failed_cmd "v2raya enabled" "systemctl enable v2raya"
 	date
