@@ -67,17 +67,9 @@ step_format() {
 step_core() {
 	myellow "Installing core!"
 	redo_failed_cmd "Install Core" install_core
-	if need_confirm "Do you want to install Extra ?"; then
-		redo_failed_cmd "Install Extra" install_extra
-	fi
 }
 install_core() {
-	pacstrap -K /mnt base base-devel linux linux-firmware linux-headers
-}
-install_extra() {
-	pacstrap -K /mnt man-db man-pages networkmanager grub efibootmgr intel-ucode \
-		fish git neovim lf bottom noto-fonts-cjk \
-		tmux zellij wget curl which lvm2
+	pacstrap -K /mnt base base-devel linux linux-firmware linux-headers fish
 }
 
 pre-chroot() {
@@ -118,7 +110,7 @@ main() {
 		fi
 		mount $mainpart /mnt && mount --mkdir $efipart /mnt/boot
 		check_last_cmd "System mounted"
-		if need_confirm "Install Core and Extra?"; then
+		if need_confirm "Install Core?"; then
 			step_core
 		fi
 		if need_confirm "Gen Fstab?"; then

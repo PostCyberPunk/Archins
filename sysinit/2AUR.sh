@@ -18,6 +18,11 @@ Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/\$arch
 EOF
 }
 
+install_essential() {
+	pacman -S --needed --noconfirm man-db man-pages networkmanager grub efibootmgr intel-ucode \
+		git neovim lf bottom noto-fonts-cjk \
+		tmux zellij wget curl which lvm2 w3m
+}
 step_extra_source() {
 	config_pacman && mgreen 'Adding community pkg to pacman.conf'
 
@@ -25,6 +30,8 @@ step_extra_source() {
 	sudo pacman-key --lsign-key "farseerfc@archlinux.org"
 	
 	redo_failed_cmd "Synced: archlinuxcn-keyring" "pacman -Sy --noconfirm archlinuxcn-keyring"
+
+	redo_failed_cmd "Synced: Essential" "install_essential"
 
 	redo_failed_cmd "Synced: yay and proxy" "pacman -S --noconfirm --needed yay ntfs-3g v2raya proxychains-ng"
 
