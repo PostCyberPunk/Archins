@@ -25,6 +25,10 @@ EOF
 	print_time
 }
 
+help() {
+  declare -F
+}
+
 if [[ ! $1 = "" ]]; then
 	"$1"
 else

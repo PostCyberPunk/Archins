@@ -58,6 +58,10 @@ step_init_system() {
 	systemctl enable NetworkManager && mgreen "NetworkManager enabled"
 }
 
+help() {
+  declare -F
+}
+
 if [[ $1 = "" ]]; then
 	step_init_system
 else

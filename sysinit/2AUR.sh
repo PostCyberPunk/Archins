@@ -40,6 +40,10 @@ step_extra_source() {
 	date
 }
 
+help() {
+  declare -F
+}
+
 if [[ $1 = "" ]]; then
 	step_extra_source
 else

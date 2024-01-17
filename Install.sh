@@ -140,6 +140,10 @@ if [ ! "$PWD" = "$DIR" ]; then
 	exit 1
 fi
 
+help() {
+  declare -F
+}
+
 if [[ $1 = "" ]]; then
 	main
 else
