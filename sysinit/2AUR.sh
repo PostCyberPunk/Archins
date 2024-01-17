@@ -26,10 +26,11 @@ install_essential() {
 step_extra_source() {
 	config_pacman && mgreen 'Adding community pkg to pacman.conf'
 
-  ############## 2023 12 patch ################
-	sudo pacman-key --lsign-key "farseerfc@archlinux.org"
-	
-	redo_failed_cmd "Synced: archlinuxcn-keyring" "pacman -Sy --noconfirm archlinuxcn-keyring"
+	read -p "Install Key-ring?(y/N)" choice_keyring
+	if [[ $choice_keyring = [Yy] ]]; then
+		sudo pacman-key --lsign-key "farseerfc@archlinux.org"
+		redo_failed_cmd "Synced: archlinuxcn-keyring" "pacman -Sy --noconfirm archlinuxcn-keyring"
+	fi
 
 	redo_failed_cmd "Synced: Essential" "install_essential"
 
