@@ -5,8 +5,8 @@ if need_confirm "Initialize enviroment(time locale user)"; then
 	./1env.sh
 fi
 
-if need_confirm "Setup AUR?"; then
-	./2AUR.sh
+if need_confirm "Install Packages?"; then
+	./2PKG.sh
 fi
 
 if need_confirm "Install systemdBoot?"; then
