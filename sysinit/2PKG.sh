@@ -34,6 +34,8 @@ step_extra_source() {
 
 	redo_failed_cmd "Synced: Essential" "install_essential"
 
+	systemctl enable NetworkManager && mgreen "NetworkManager enabled"
+
 	redo_failed_cmd "Synced: yay and proxy" "pacman -S --noconfirm --needed yay ntfs-3g v2raya proxychains-ng"
 
 	redo_failed_cmd "v2raya enabled" "systemctl enable v2raya"

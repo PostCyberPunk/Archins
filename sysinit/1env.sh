@@ -55,7 +55,6 @@ step_init_system() {
 	gen_locale && mgreen "Initialized:Locale"
 	set_usernpass && mgreen "Initialized:User and password"
 
-	systemctl enable NetworkManager && mgreen "NetworkManager enabled"
 }
 
 help() {
